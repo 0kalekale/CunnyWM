@@ -1,4 +1,4 @@
-# CunnyWM - Cunny Window Manager
+# CunnyWM - Cunny Window Manager (part of sysk)
 
 CunnyWM is an extremely fast, small, and dynamic window manager for X.
 
