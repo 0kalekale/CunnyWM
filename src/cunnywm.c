@@ -6,7 +6,7 @@
  * events about window (dis-)appearance. Only one X connection at a time is
  * allowed to select for this event mask.
  *
- * The event handlers of dwm are organized in an array which is accessed
+ * The event handlers of cunnywm are organized in an array which is accessed
  * whenever a new event has been fetched. This allows event dispatching
  * in O(1) time.
  *
@@ -275,7 +275,7 @@ static Systray *systray =  NULL;
 static const char autostartblocksh[] = "autostart_blocking.sh";
 static const char autostartsh[] = "autostart.sh";
 static const char broken[] = "broken";
-static const char dwmdir[] = "dwm";
+static const char cunnywmdir[] = "cunnywm";
 static const char localshare[] = ".local/share";
 static char stext[256];
 static int screen;
@@ -1560,24 +1560,24 @@ runautostart(void)
 		/* this is almost impossible */
 		return;
 
-	/* if $XDG_DATA_HOME is set and not empty, use $XDG_DATA_HOME/dwm,
-	 * otherwise use ~/.local/share/dwm as autostart script directory
+	/* if $XDG_DATA_HOME is set and not empty, use $XDG_DATA_HOME/cunnywm,
+	 * otherwise use ~/.local/share/cunnywm as autostart script directory
 	 */
 	xdgdatahome = getenv("XDG_DATA_HOME");
 	if (xdgdatahome != NULL && *xdgdatahome != '\0') {
 		/* space for path segments, separators and nul */
-		pathpfx = ecalloc(1, strlen(xdgdatahome) + strlen(dwmdir) + 2);
+		pathpfx = ecalloc(1, strlen(xdgdatahome) + strlen(cunnywmdir) + 2);
 
-		if (sprintf(pathpfx, "%s/%s", xdgdatahome, dwmdir) <= 0) {
+		if (sprintf(pathpfx, "%s/%s", xdgdatahome, cunnywmdir) <= 0) {
 			free(pathpfx);
 			return;
 		}
 	} else {
 		/* space for path segments, separators and nul */
 		pathpfx = ecalloc(1, strlen(home) + strlen(localshare)
-		                     + strlen(dwmdir) + 3);
+		                     + strlen(cunnywmdir) + 3);
 
-		if (sprintf(pathpfx, "%s/%s/%s", home, localshare, dwmdir) < 0) {
+		if (sprintf(pathpfx, "%s/%s/%s", home, localshare, cunnywmdir) < 0) {
 			free(pathpfx);
 			return;
 		}
@@ -1586,16 +1586,16 @@ runautostart(void)
 	/* check if the autostart script directory exists */
 	if (! (stat(pathpfx, &sb) == 0 && S_ISDIR(sb.st_mode))) {
 		/* the XDG conformant path does not exist or is no directory
-		 * so we try ~/.dwm instead
+		 * so we try ~/.cunnywm instead
 		 */
-		char *pathpfx_new = realloc(pathpfx, strlen(home) + strlen(dwmdir) + 3);
+		char *pathpfx_new = realloc(pathpfx, strlen(home) + strlen(cunnywmdir) + 3);
 		if(pathpfx_new == NULL) {
 			free(pathpfx);
 			return;
 		}
 		pathpfx = pathpfx_new;
 
-		if (sprintf(pathpfx, "%s/.%s", home, dwmdir) <= 0) {
+		if (sprintf(pathpfx, "%s/.%s", home, cunnywmdir) <= 0) {
 			free(pathpfx);
 			return;
 		}
@@ -1908,7 +1908,7 @@ spawn(const Arg *arg)
 			close(ConnectionNumber(dpy));
 		setsid();
 		execvp(((char **)arg->v)[0], (char **)arg->v);
-		fprintf(stderr, "dwm: execvp %s", ((char **)arg->v)[0]);
+		fprintf(stderr, "cunnywm: execvp %s", ((char **)arg->v)[0]);
 		perror(" failed");
 		exit(EXIT_SUCCESS);
 	}
@@ -2089,7 +2089,7 @@ updatebars(void)
 		.background_pixmap = ParentRelative,
 		.event_mask = ButtonPressMask|ExposureMask
 	};
-	XClassHint ch = {"dwm", "dwm"};
+	XClassHint ch = {"cunnywm", "cunnywm"};
 	for (m = mons; m; m = m->next) {
 		if (m->barwin)
 			continue;
@@ -2366,7 +2366,7 @@ updatesystray(void)
 			XSync(dpy, False);
 		}
 		else {
-			fprintf(stderr, "dwm: unable to obtain system tray.\n");
+			fprintf(stderr, "cunnywm: unable to obtain system tray.\n");
 			free(systray);
 			systray = NULL;
 			return;
@@ -2524,7 +2524,7 @@ xerror(Display *dpy, XErrorEvent *ee)
 	|| (ee->request_code == X_GrabKey && ee->error_code == BadAccess)
 	|| (ee->request_code == X_CopyArea && ee->error_code == BadDrawable))
 		return 0;
-	fprintf(stderr, "dwm: fatal error: request code=%d, error code=%d\n",
+	fprintf(stderr, "cunnywm: fatal error: request code=%d, error code=%d\n",
 		ee->request_code, ee->error_code);
 	return xerrorxlib(dpy, ee); /* may call exit */
 }
@@ -2540,7 +2540,7 @@ xerrordummy(Display *dpy, XErrorEvent *ee)
 int
 xerrorstart(Display *dpy, XErrorEvent *ee)
 {
-	die("dwm: another window manager is already running");
+	die("cunnywm: another window manager is already running");
 	return -1;
 }
 
@@ -2564,11 +2564,11 @@ main(int argc, char *argv[])
 	if (argc == 2 && !strcmp("-v", argv[1]))
 		die("cunnywm-0.1");
 	else if (argc != 1)
-		die("usage: CunnyWM [-v]");
+		die("usage: cunnywm [-v]");
 	if (!setlocale(LC_CTYPE, "") || !XSupportsLocale())
 		fputs("warning: no locale support\n", stderr);
 	if (!(dpy = XOpenDisplay(NULL)))
-		die("dwm: cannot open display");
+		die("cunnywm: cannot open display");
 	checkotherwm();
 	setup();
 #ifdef __OpenBSD__

@@ -1,11 +1,11 @@
-.TH DWM 1 dwm\-VERSION
+.TH cunnywm 1 cunnywm\-VERSION
 .SH NAME
-dwm \- dynamic window manager
+cunnywm \- cunny window manager
 .SH SYNOPSIS
-.B dwm
+.B cunnywm
 .RB [ \-v ]
 .SH DESCRIPTION
-dwm is a dynamic window manager for X. It manages windows in tiled, monocle
+cunnyw is a dynamic window manager for X. It manages windows in tiled, monocle
 and floating layouts. Either layout can be applied dynamically, optimising the
 environment for the application in use and the task performed.
 .P
@@ -29,13 +29,13 @@ color. The tags of the focused window are indicated with a filled square in the
 top left corner.  The tags which are applied to one or more windows are
 indicated with an empty square in the top left corner.
 .P
-dwm draws a small border around windows to indicate the focus state.
+cunnywm draws a small border around windows to indicate the focus state.
 .P
-On start, dwm can start additional programs that may be specified in two special
+On start, cunnywm can start additional programs that may be specified in two special
 shell scripts (see the FILES section below), autostart_blocking.sh and
-autostart.sh.  The former is executed first and dwm will wait for its
+autostart.sh.  The former is executed first and cunnywm will wait for its
 termination before starting.  The latter is executed in the background before
-dwm enters its handler loop.
+cunnywm enters its handler loop.
 .P
 Either of these files may be omitted.
 .SH OPTIONS
@@ -149,7 +149,7 @@ View all windows with any tag.
 Add/remove all windows with nth tag to/from the view.
 .TP
 .B Mod1\-Shift\-q
-Quit dwm.
+Quit cunnywm.
 .SS Mouse commands
 .TP
 .B Mod1\-Button1
@@ -161,22 +161,22 @@ Toggles focused window between floating and tiled state.
 .B Mod1\-Button3
 Resize focused window while dragging. Tiled windows will be toggled to the floating state.
 .SH FILES
-The files containing programs to be started along with dwm are searched for in
+The files containing programs to be started along with cunnywm are searched for in
 the following directories:
-.IP "1. $XDG_DATA_HOME/dwm"
-.IP "2. $HOME/.local/share/dwm"
-.IP "3. $HOME/.dwm"
+.IP "1. $XDG_DATA_HOME/cunnywm"
+.IP "2. $HOME/.local/share/cunnywm"
+.IP "3. $HOME/.cunnywm"
 .P
 The first existing directory is scanned for any of the autostart files below.
 .TP 15
 autostart.sh
-This file is started as a shell background process before dwm enters its handler
+This file is started as a shell background process before cunnywm enters its handler
 loop.
 .TP 15
 autostart_blocking.sh
-This file is started before any autostart.sh; dwm waits for its termination.
+This file is started before any autostart.sh; cunnywm waits for its termination.
 .SH CUSTOMIZATION
-dwm is customized by creating a custom config.h and (re)compiling the source
+cunnywm is customized by creating a custom config.h and (re)compiling the source
 code. This keeps it fast, secure and simple.
 .SH SEE ALSO
 .BR dmenu (1),
@@ -196,4 +196,4 @@ or
 XToolkit/XAWT backend can recognize) or when using OpenJDK setting the environment variable
 .BR _JAVA_AWT_WM_NONREPARENTING=1 .
 .SH BUGS
-Send all bug reports with a patch to hackers@suckless.org.
+Send all bug reports with a patch to gitlab.com/0kalekale/CunnyWM.

@@ -1,0 +1,21 @@
+# Template file for 'cunnywm'
+pkgname=cunnywm
+version=0.0.1
+revision=1
+makedepends="libXinerama-devel libXft-devel freetype-devel"
+short_desc="Cunnywm window manager for X"
+maintainer="0kalekale <kalekale.anon@gmail.com>"
+license="MIT"
+homepage="https://gitlab.com/0kalekale/CunnyWM"
+distfiles="https://gitlab.com/0kalekale/binaries/-/raw/master/cunnywm-src0.0.1.tar"
+checksum=db792bb624cde3ea4a36355b6e31fbbc037d760a84b977ed33e03edb0ee7113c
+
+do_build() {
+	meson build -Dprefix=/usr
+	cd build
+	ninja -j$(nproc)
+}
+
+do_install() {
+	ninja install PREFIX=/usr
+}

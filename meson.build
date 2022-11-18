@@ -12,3 +12,4 @@ cunny_source = [
 		   'src/drw.c',	
 ]
 executable('cunnywm', cunny_source, dependencies : [x11, fontcfg, freetype], install : true, link_args : ['-lXft'])
+install_man('src/cunnywm.1')
