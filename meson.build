@@ -1,5 +1,5 @@
 project('cunnywm', 'c',
-    license : 'GPLv3',
+    license : 'MIT', # AGPL soon
     version : '0.1')
 
 freetype = dependency('freetype2')
